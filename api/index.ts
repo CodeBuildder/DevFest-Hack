@@ -8,7 +8,7 @@ import session from "express-session";
 import connectDB from "./db/db.connect";
 import { HttpError } from "http-errors";
 connectDB();
-
+require("./passport/passport.config");
 const app: Express = express();
 const port = process.env.PORT || 3000;
 app.use(
