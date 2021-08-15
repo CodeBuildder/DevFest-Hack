@@ -1,7 +1,14 @@
 import { Router, Request, Response, NextFunction } from "express";
 import adminMiddleware from "../middleware/auth";
 import { requestType } from "./request.schema";
-import { sendRequest, findRequest } from "./request.db";
+import {
+  sendRequest,
+  findRequest,
+  acceptRequest,
+  deleteRequest,
+  findAssignedWorkers,
+  findAssignedWorks,
+} from "./request.db";
 import { userDB } from "../user/user.schema";
 
 const router: Router = Router();
@@ -59,3 +66,31 @@ router.delete(
     }
   }
 );
+
+router.get(
+  "/api/client/get/:username",
+  adminMiddleware,
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const allWorkers = await findAssignedWorkers(req.params.username);
+      res.status(200).json(allWorkers);
+    } catch (err) {
+      next(err);
+    }
+  }
+);
+
+router.get(
+  "/api/worker/get/assigned/:workerId",
+
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const result = await findAssignedWorks(req.params.workerId);
+      res.status(200).json(result);
+    } catch (err) {
+      next(err);
+    }
+  }
+);
+
+export default router;

@@ -88,3 +88,23 @@ export const deleteRequest = async (postId: string) => {
     throw HttpError(404, "Request could not be found");
   }
 };
+
+export const findAssignedWorkers = async (name: string) => {
+  const client: mongodb.MongoClient = await getClient();
+  const requestResult = await client
+    .db()
+    .collection("connections")
+    .find({ "assign.client": name })
+    .toArray();
+  console.log(requestResult);
+  return requestResult;
+};
+export const findAssignedWorks = async (workerId: string) => {
+  const client: mongodb.MongoClient = await getClient();
+  const assignedWorks = await client
+    .db()
+    .collection("request")
+    .find({ workerId: workerId, accepted: true })
+    .toArray();
+  return assignedWorks;
+};
