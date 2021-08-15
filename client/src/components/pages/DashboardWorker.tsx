@@ -1,5 +1,8 @@
 import Cookies from "js-cookie";
 import NavBar from "../NavbarComponent";
+import WorkerCreatePost from "../helper/WorkerCreatePost";
+import AssignedClientBar from "../client/AssignClientBar";
+import WorkerApprovalRequest from "../helper/WorkerApprovalRequest";
 
 export default function DashboardWorker() {
   return (
@@ -9,11 +12,11 @@ export default function DashboardWorker() {
           <NavBar />
           <div className="flex">
             <div className="w-3/4">
-              {/* <WorkerCreatePost />
-              <WorkerApprovalRequest /> */}
+              <WorkerCreatePost />
+              <WorkerApprovalRequest />
             </div>
 
-            {/* <AssignedClientBar /> */}
+            <AssignedClientBar />
           </div>
         </div>
       ) : (

@@ -34,6 +34,7 @@
     "@types/node": "^16.6.1",
     "@types/passport": "^1.0.7",
     "@types/passport-local": "^1.0.34",
+    "@types/react-select": "^4.0.17",
     "@types/yup": "^0.29.13",
     "nodemon": "^2.0.12",
     "ts-node": "^10.2.0",

@@ -1,7 +1,9 @@
 import Cookies from "js-cookie";
 import react, { useContext } from "react";
 import NavBar from "../NavbarComponent";
+import FilterService from "../client/FilterServiceClient";
 import { WorkerPosts } from "../client/WorkerPostsRequest";
+import NearByWorker from "../client/NearbyWorkerBar";
 
 export default function DashboardClient() {
   return (
@@ -10,7 +12,9 @@ export default function DashboardClient() {
         <div className="w-full bg-gray-300 h-full flex flex-col">
           <NavBar />
           <div className="w-full  h-full flex justify-center">
+            <FilterService />
             <WorkerPosts />
+            <NearByWorker />
           </div>
         </div>
       ) : (
