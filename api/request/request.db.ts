@@ -18,9 +18,7 @@ export const sendRequest = async (data: requestType, user: userDB) => {
   if (response.insertedCount <= 0) {
     HttpError(500, "Internal Server Error");
   }
-  // sms logic should come here
-  //send sms to worker using his phone number
-  //send details like who has requested the service and the all the post details :)
+
   return { success: true, _id: response.insertedId };
 };
 
