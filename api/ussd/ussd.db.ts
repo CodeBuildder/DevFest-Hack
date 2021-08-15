@@ -17,3 +17,14 @@ export const acceptRequestOnUssd = async (contact: string) => {
   }
   return requestResult;
 };
+export const rejectRequestOnUssd = async (contact: string) => {
+  const client: mongodb.MongoClient = await getClient();
+  const requestResult = await client
+    .db()
+    .collection("request")
+    .deleteOne({ workerContact: contact });
+  if (requestResult.deletedCount !== 1) {
+    throw HttpError(404, "Request is not found");
+  }
+  return requestResult;
+};
