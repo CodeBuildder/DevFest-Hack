@@ -1,3 +1,5 @@
+import SignupForm from "../SignupFormComponent";
+
 function Signup() {
   return (
     <div>
@@ -20,6 +22,7 @@ function Signup() {
           </div>
         </div>
       </div>
+      <SignupForm />
     </div>
   );
 }
