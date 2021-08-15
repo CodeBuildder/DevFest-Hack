@@ -46,3 +46,36 @@ export const getSingleWorkerPost = async (user: userDB) => {
 
   return singleWorkerPosts;
 };
+export const filterPost = async (service: ServiceType) => {
+  if (Array.isArray(service)) {
+    const client: mongodb.MongoClient = await getClient();
+    const DB = await client.db().collection<workerPosts>("post");
+    if (service.length == 0) {
+      return await DB.find().toArray();
+    }
+    const FilteredPosts = await DB.find({
+      services: { $all: service },
+    }).toArray();
+    if (FilteredPosts.length == 0) {
+      throw HttpError(
+        404,
+        "Workers of that particular service could not be found"
+      );
+    }
+    return FilteredPosts;
+  }
+  throw HttpError(400, "Services should be of type Array");
+};
+export const nearbyWorkers = async (user: userDB) => {
+  const client: mongodb.MongoClient = await getClient();
+  const postList: any = await client
+    .db()
+    .collection("post")
+    .find({ "user._id": { $ne: new mongodb.ObjectID(user._id) } })
+    .toArray();
+  const result = findDistance(postList, user.location);
+  if (result.length == 0) {
+    return HttpError(404, "No nearby users are found");
+  }
+  return result;
+};
