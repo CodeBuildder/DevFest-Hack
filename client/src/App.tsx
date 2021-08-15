@@ -10,27 +10,27 @@ import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
 
 function App() {
   return (
-    // <GlobalProvider>
-    <Router>
-      <Switch>
-        <Route exact path="/">
-          <Home />
-        </Route>
-        <Route exact path="/login">
-          <Login />
-        </Route>
-        <Route exact path="/signup">
-          <Signup />
-        </Route>
-        <Route path="/dashboard">
-          <DashboardClient />
-        </Route>
-        <Route path="/worker/dashboard">
-          <DashboardWorker />
-        </Route>
-      </Switch>
-    </Router>
-    //</GlobalProvider>
+    <GlobalProvider>
+      <Router>
+        <Switch>
+          <Route exact path="/">
+            <Home />
+          </Route>
+          <Route exact path="/login">
+            <Login />
+          </Route>
+          <Route exact path="/signup">
+            <Signup />
+          </Route>
+          <Route path="/dashboard">
+            <DashboardClient />
+          </Route>
+          <Route path="/worker/dashboard">
+            <DashboardWorker />
+          </Route>
+        </Switch>
+      </Router>
+    </GlobalProvider>
   );
 }
 
