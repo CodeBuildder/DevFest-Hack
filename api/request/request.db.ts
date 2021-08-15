@@ -34,3 +34,57 @@ export const findRequest = async (workerId: string) => {
 
   return requestResult;
 };
+
+export const acceptRequest = async (postId: string) => {
+  const client: mongodb.MongoClient = await getClient();
+  const requestResult = await client
+    .db()
+    .collection("request")
+    .updateOne(
+      { _id: new mongodb.ObjectID(postId) },
+      { $set: { accepted: true } }
+    );
+  if (requestResult.modifiedCount == 1) {
+    const assignedTo = await client
+      .db()
+      .collection("request")
+      .findOne({ _id: new mongodb.ObjectID(postId) });
+    const worker = await client
+      .db()
+      .collection("users")
+      .findOne({ _id: new mongodb.ObjectID(assignedTo.workerId) });
+    const assign: assignType = {
+      worker: worker.username,
+      client: assignedTo.client.username,
+      profession: assignedTo.services,
+      timeslots: assignedTo.timeslots,
+    };
+    const assignConnection = await client
+      .db()
+      .collection("connections")
+      .insertOne({ assign });
+    if (assignConnection.insertedCount !== 1) {
+      throw HttpError(500, "Could not assign worker and client");
+    }
+  }
+
+  if (requestResult.matchedCount !== 1) {
+    throw HttpError(404, "Request of that id could not be found");
+  }
+  if (requestResult.modifiedCount !== 1) {
+    throw HttpError(
+      409,
+      "Request has either been processed already or Internal server error "
+    );
+  }
+};
+export const deleteRequest = async (postId: string) => {
+  const client: mongodb.MongoClient = await getClient();
+  const requestResult = await client
+    .db()
+    .collection("request")
+    .deleteOne({ _id: new mongodb.ObjectID(postId) });
+  if (requestResult.deletedCount !== 1) {
+    throw HttpError(404, "Request could not be found");
+  }
+};

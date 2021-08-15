@@ -33,3 +33,29 @@ router.get(
     }
   }
 );
+router.patch(
+  "/api/request/:postId",
+  adminMiddleware,
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const postId = req.params.postId;
+      await acceptRequest(postId);
+      res.json({ message: "Requested accepted" });
+    } catch (err) {
+      next(err);
+    }
+  }
+);
+router.delete(
+  "/api/request/:postId",
+  adminMiddleware,
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const postId = req.params.postId;
+      await deleteRequest(postId);
+      res.json({ message: "Request rejected" });
+    } catch (err) {
+      next(err);
+    }
+  }
+);
