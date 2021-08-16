@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme: Theme) =>
       backgroundColor: theme.palette.background.paper,
       border: "2px solid #000",
       boxShadow: theme.shadows[5],
-      padding: theme.spacing(2, 4, 3),
+      padding: theme.spacing(2, 2, 2),
     },
   })
 );
@@ -116,14 +116,14 @@ const NearbyModal: React.FC<workerModal> = (props: workerModal) => {
         }}
       >
         <Fade in={open}>
-          <div className="flex-row float-left px-5">
+          <div className="flex-row float-left px-5 pb-12">
             <div
               className="bg-black bg-opacity-50 absolute inset-0 flex justify-center items-center"
               id="overlay"
             >
-              <div className="bg-white w-2/4 h-5/7 py-2 px-3 rounded shadow-xl text-gray-800">
-                <div className="flex justify-between items-center">
-                  <h4 className="text-white mt-3 mb-5 font-bold font-display">
+              <div className="bg-white w-2/4 h-5/7  px-3 rounded shadow-xl text-gray-800 pb-4">
+                <div className="flex justify-between items-center  ">
+                  <h4 className="mt-3 mb-5 font-bold font-display">
                     Hire your helpers now!
                   </h4>
                   <button onClick={handleClose}>
@@ -150,7 +150,7 @@ const NearbyModal: React.FC<workerModal> = (props: workerModal) => {
                         alt=""
                       ></img>
                       <span className="w-full h-8">
-                        <h1 className="w-1/3 font-display text-xl text-green-800">
+                        <h1 className="w-1/3 font-display text-xl text-green-800 font-semibold">
                           {props.workerData.user.username}
                         </h1>
                       </span>
@@ -160,10 +160,10 @@ const NearbyModal: React.FC<workerModal> = (props: workerModal) => {
                           Age: {props.workerData.user.age}
                         </p>
                       </span>
-                      <div className="text-xs flex h-full mt-5">
+                      <div className="text-xs  flex h-full mt-5">
                         {props.workerData.services.map((item: any) => (
                           <p
-                            className="mt-3 mr-3 w-32 bg-gray-300 text-gray-700 shadow-2xl p-2 rounded-full text-xs flex-row 
+                            className="mt-3 mr-3 w-32 bg-gray-300 font-semibold text-gray-700 shadow-2xl p-2 rounded-full text-xs flex-row 
                             hover:scale-125"
                           >
                             {item}
@@ -174,12 +174,12 @@ const NearbyModal: React.FC<workerModal> = (props: workerModal) => {
                     <div className="w-2/3">
                       <div className="ml-12 w-3/4 font-display text-mg text-green-800">
                         <p>
-                          <b className="mb-2">About:</b>
+                          <b className="mb-2 underline">About</b>
                           <br></br>
                           {props.workerData.user.about}
                         </p>
                       </div>
-                      <div className="text-xs flex ml-10">
+                      <div className="text-xs font-semibold flex ml-10">
                         {props.workerData.timeslots.map((time: any) => (
                           <div className="flex-row mb-2 mr-3 mt-5 text-sm text-white">
                             <input
